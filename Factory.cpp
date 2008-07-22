@@ -6,16 +6,21 @@
 #include <Display/Frustum.h>
 #include <Display/Viewport.h>
 #include <Display/ViewingVolume.h>
-#include <Display/SDLFrame.h>
-#include <Devices/SDLInput.h>
-#include <Renderers/OpenGL/Renderer.h>
-#include <Renderers/OpenGL/RenderingView.h>
 #include <Scene/GeometryNode.h>
 #include <Scene/TransformationNode.h>
 #include <Resources/ResourceManager.h>
 #include <Utils/Statistics.h>
 
 // from extensions
+#include <Display/SDLFrame.h>
+#include <Devices/SDLInput.h>
+
+#include <Renderers/OpenGL/Renderer.h>
+#include <Renderers/OpenGL/RenderingView.h>
+
+#include <Sound/OpenALSoundManager.h>
+#include <Resources/OpenALSoundResource.h>
+
 #include <Utils/MoveHandler.h>
 #include <Utils/QuitHandler.h>
 
@@ -26,6 +31,7 @@ using namespace OpenEngine::Core;
 using namespace OpenEngine::Display;
 using namespace OpenEngine::Renderers::OpenGL;
 using namespace OpenEngine::Scene;
+using namespace OpenEngine::Sound;
 using namespace OpenEngine::Resources;
 using namespace OpenEngine::Utils;
 
@@ -78,9 +84,10 @@ bool Factory::SetupEngine(IGameEngine& engine) {
 	DirectoryManager::AppendPath(""); //current directory
 
         // load the resource plug-ins
-	//ResourceManager<IMovieResource>::AddPlugin(new FFMPEGPlugin());
+	ResourceManager<ISoundResource>::AddPlugin(new OpenALSoundPlugin());
 
         engine.AddModule(*(new Statistics(1000)));
+        engine.AddModule(*(new OpenALSoundManager(root)));
 
     } catch (const Exception& ex) {
         logger.error << "An exception occurred: " << ex.what() << logger.end;

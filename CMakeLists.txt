@@ -7,6 +7,7 @@ SET( PROJECT_SOURCES
   # Add all the cpp source files here
   main.cpp
   Factory.cpp
+  TransformationUpdater.cpp
 )
 
 # Include if using SDL under Mac OS X
@@ -37,4 +38,5 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME}
   Extensions_GenericHandlers
   Extensions_OpenALSoundManager
   Extensions_OpenALSoundResource
+  Extensions_Shapes
 )

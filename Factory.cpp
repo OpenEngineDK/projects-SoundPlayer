@@ -20,6 +20,7 @@
 
 #include <Sound/OpenALSoundManager.h>
 #include <Resources/OpenALSoundResource.h>
+#include <Resources/ISoundResource.h>
 
 #include <Utils/MoveHandler.h>
 #include <Utils/QuitHandler.h>
@@ -86,8 +87,12 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         // load the resource plug-ins
 	ResourceManager<ISoundResource>::AddPlugin(new OpenALSoundPlugin());
 
-        engine.AddModule(*(new Statistics(1000)));
+	ISoundResourcePtr sound = 
+	  ResourceManager<ISoundResource>::Create(filename);
+	root->AddNode( new SoundNode(sound) );
+
         engine.AddModule(*(new OpenALSoundManager(root)));
+        engine.AddModule(*(new Statistics(1000)));
 
     } catch (const Exception& ex) {
         logger.error << "An exception occurred: " << ex.what() << logger.end;

@@ -92,7 +92,7 @@ bool Factory::SetupEngine(IGameEngine& engine) {
 	SoundNode* soundNode = new SoundNode(sound);
 	root->AddNode(soundNode);
 
-        engine.AddModule(*(new OpenALSoundManager(root)));
+        engine.AddModule(*(new OpenALSoundManager(root, camera)));
 	soundNode->Play();
 
         engine.AddModule(*(new Statistics(1000)));

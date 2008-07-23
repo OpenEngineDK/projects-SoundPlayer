@@ -89,9 +89,12 @@ bool Factory::SetupEngine(IGameEngine& engine) {
 
 	ISoundResourcePtr sound = 
 	  ResourceManager<ISoundResource>::Create(filename);
-	root->AddNode( new SoundNode(sound) );
+	SoundNode* soundNode = new SoundNode(sound);
+	root->AddNode(soundNode);
 
         engine.AddModule(*(new OpenALSoundManager(root)));
+	soundNode->Play();
+
         engine.AddModule(*(new Statistics(1000)));
 
     } catch (const Exception& ex) {

@@ -21,7 +21,6 @@
 
 #include <Sound/OpenALSoundManager.h>
 #include <Sound/ISound.h>
-#include <Sound/OpenALSound.h>
 #include <Scene/SoundNode.h>
 
 

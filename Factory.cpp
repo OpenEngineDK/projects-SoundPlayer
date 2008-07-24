@@ -2,8 +2,6 @@
 #include "SoundKeyHandler.h"
 #include "TransformationUpdater.h"
 #include "CircleUpdate.h"
-#include "WaypointUpdate.h"
-
 
 // from OpenEngine
 #include <Logging/Logger.h>

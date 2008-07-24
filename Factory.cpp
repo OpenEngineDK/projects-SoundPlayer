@@ -20,7 +20,11 @@
 #include <Renderers/OpenGL/RenderingView.h>
 
 #include <Sound/OpenALSoundManager.h>
+#include <Sound/ISound.h>
+#include <Sound/OpenALSound.h>
 #include <Scene/SoundNode.h>
+
+
 #include <Resources/OpenALSoundResource.h>
 #include <Resources/ISoundResource.h>
 
@@ -60,9 +64,9 @@ public:
     void Handle(KeyboardEventArg arg) {
         if (arg.type == KeyboardEventArg::PRESS) {
             switch (arg.sym) {
-            case KEY_p: sn->Play(); break;
-            case KEY_o: sn->Stop(); break;
-            case KEY_i: sn->Pause(); break;
+            case KEY_p: sn->GetSound()->Play(); break;
+            case KEY_o: sn->GetSound()->Stop(); break;
+            case KEY_i: sn->GetSound()->Pause(); break;
             default: 
                 break;
             }
@@ -142,26 +146,31 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         m->diffuse = Vector<4,float>(0.0,0.0,0.4,1.0);
         m->shininess = 0;
         m->emission = Vector<4,float>(0.1,0.0,0.0,1.0);
-        SphereNode* sphere = new SphereNode(m,30,30);
-        SphereNode* sphere2 = new SphereNode();
-        
+
         root->AddNode(tn);
         root->AddNode(tn2);
         tn2->AddNode(dln);
+
+        SphereNode* sphere = new SphereNode(m,30,30);
+        SphereNode* sphere2 = new SphereNode();        
         dln->AddNode(sphere2);
         tn->AddNode(sphere);
+	OpenALSoundManager* openalsmgr = new OpenALSoundManager(root, camera);
+        engine.AddModule(*openalsmgr);
 
-        ISoundResourcePtr sound = 
+
+        ISoundResourcePtr soundres = 
             ResourceManager<ISoundResource>::Create(filename);
+
+	ISound* sound = openalsmgr->CreateSound(soundres);
         SoundNode* soundNode = new SoundNode(sound);
         tn->AddNode(soundNode);
-        
+
         // move the transformation node in a circle
         TransformationUpdater* tu  = 
             new TransformationUpdater(tn, Vector<3,float>(0,0,0), 100, 0.1);
         engine.AddModule(*tu);
         
-        engine.AddModule(*(new OpenALSoundManager(root, camera)));
 
         PlayHandler* ph = new PlayHandler(soundNode);
         ph->BindToEventSystem();

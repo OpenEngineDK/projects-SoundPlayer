@@ -1,6 +1,8 @@
 #include "Factory.h"
 #include "SoundKeyHandler.h"
 #include "TransformationUpdater.h"
+#include "CircleUpdate.h"
+#include "WaypointUpdate.h"
 
 
 // from OpenEngine
@@ -45,7 +47,6 @@ using namespace OpenEngine::Scene;
 using namespace OpenEngine::Sound;
 using namespace OpenEngine::Resources;
 using namespace OpenEngine::Utils;
-using namespace OpenEngine::Sound;
 
 string Factory::filename = "";
 
@@ -154,23 +155,23 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         SphereNode* sphere2 = new SphereNode();        
         dln->AddNode(sphere2);
         tn->AddNode(sphere);
-	OpenALSoundManager* openalsmgr = new OpenALSoundManager(root, camera);
+        OpenALSoundManager* openalsmgr = new OpenALSoundManager(root, camera);
         engine.AddModule(*openalsmgr);
 
 
         ISoundResourcePtr soundres = 
             ResourceManager<ISoundResource>::Create(filename);
 
-	ISound* sound = openalsmgr->CreateSound(soundres);
+        ISound* sound = openalsmgr->CreateSound(soundres);
         SoundNode* soundNode = new SoundNode(sound);
         tn->AddNode(soundNode);
 
         // move the transformation node in a circle
+        CircleUpdate* cu = new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
         TransformationUpdater* tu  = 
-            new TransformationUpdater(tn, Vector<3,float>(0,0,0), 100, 0.1);
+            new TransformationUpdater(tn, cu);
         engine.AddModule(*tu);
         
-
         PlayHandler* ph = new PlayHandler(soundNode);
         ph->BindToEventSystem();
 

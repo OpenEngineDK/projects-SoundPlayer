@@ -7,10 +7,11 @@
 // See the GNU General Public License for more details (see LICENSE). 
 //--------------------------------------------------------------------
 
-#ifndef _TRANSFORMATION_UPDATER_H_
-#define _TRANSFORMATION_UPDATER_H_
+#ifndef _CIRCLE_UPDATE_H_
+#define _CIRCLE_UPDATE_H_
 
-#include <Core/IModule.h>
+
+#include "TransformationUpdater.h"
 #include <Math/Vector.h>
 
 namespace OpenEngine {
@@ -21,31 +22,24 @@ namespace OpenEngine {
 
 namespace Utils {
 
-using OpenEngine::Core::IModule;
+using OpenEngine::Math::Vector;
 using OpenEngine::Scene::TransformationNode;
 
-class IUpdateStrategy {
-public:
-    ~IUpdateStrategy() {};
-    
-    virtual void Update(TransformationNode* t, const float deltaTime, const float percent) = 0;
-};
-
-class TransformationUpdater: public IModule {
+class CircleUpdate: public IUpdateStrategy {
 private:
     TransformationNode* tn;
-    IUpdateStrategy* s;
-    bool active;
+    Vector<3,float> center;
+    float radius;
+    float angle;
+    float speed;
 public:
-    TransformationUpdater(TransformationNode* tn, IUpdateStrategy* s);
-    virtual ~TransformationUpdater();
+    CircleUpdate(Vector<3,float> center,
+                 float radius,
+                 float speed,
+                 float angle);
 
-    void SetActive(bool state);
-
-    void Initialize();
-    void Process(const float deltaTime, const float percent);
-    void Deinitialize();
-    bool IsTypeOf(const std::type_info& inf);
+    virtual ~CircleUpdate();
+    virtual void Update(TransformationNode* t, const float deltaTime, const float percent);
 };
 
 } // NS Utils

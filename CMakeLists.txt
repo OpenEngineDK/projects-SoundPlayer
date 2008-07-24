@@ -8,6 +8,8 @@ SET( PROJECT_SOURCES
   main.cpp
   Factory.cpp
   TransformationUpdater.cpp
+  CircleUpdate.cpp
+#  WaypointUpdate.cpp
 )
 
 # Include if using SDL under Mac OS X

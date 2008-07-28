@@ -19,7 +19,8 @@
 #include <Renderers/OpenGL/Renderer.h>
 #include <Renderers/OpenGL/RenderingView.h>
 
-#include <Sound/OpenALSoundManager.h>
+#include <Sound/OpenALSoundSystem.h>
+#include <Sound/ISoundSystem.h>
 #include <Sound/ISound.h>
 #include <Scene/SoundNode.h>
 
@@ -153,7 +154,7 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         SphereNode* sphere2 = new SphereNode();        
         dln->AddNode(sphere2);
         tn->AddNode(sphere);
-        OpenALSoundManager* openalsmgr = new OpenALSoundManager(root, camera);
+        ISoundSystem* openalsmgr = new OpenALSoundSystem(root, camera);
         engine.AddModule(*openalsmgr);
 
 

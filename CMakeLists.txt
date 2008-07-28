@@ -38,7 +38,7 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME}
   # Extension dependencies
   Extensions_SDL
   Extensions_GenericHandlers
-  Extensions_OpenALSoundManager
+  Extensions_OpenALSoundSystem
   Extensions_VorbisResource
   Extensions_Shapes
 )

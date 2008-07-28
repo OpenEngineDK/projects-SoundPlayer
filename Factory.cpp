@@ -23,8 +23,7 @@
 #include <Sound/ISound.h>
 #include <Scene/SoundNode.h>
 
-
-#include <Resources/OpenALSoundResource.h>
+#include <Resources/VorbisResource.h>
 #include <Resources/ISoundResource.h>
 
 #include <Scene/SphereNode.h>
@@ -125,13 +124,14 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         DirectoryManager::AppendPath(""); //current directory
         
         // load the resource plug-ins
-        ResourceManager<ISoundResource>::AddPlugin(new OpenALSoundPlugin());
+        ResourceManager<ISoundResource>::AddPlugin(new VorbisResourcePlugin());
         //ResourceManager<IMovieResource>::AddPlugin(new FFMPEGPlugin());
 
         // visualize sound
         TransformationNode* tn = new TransformationNode();
         TransformationNode* tn2 = new TransformationNode();
         tn->Scale(5,5,5);
+
         tn2->Move(0,0,-100);
         PointLightNode* dln = new PointLightNode();
         dln->linearAtt = 0.001;

@@ -23,6 +23,7 @@
 #include <Sound/ISoundSystem.h>
 #include <Sound/ISound.h>
 #include <Scene/SoundNode.h>
+#include <Sound/SoundRenderer.h>
 
 #include <Resources/VorbisResource.h>
 #include <Resources/ISoundResource.h>
@@ -131,7 +132,6 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         // visualize sound
         TransformationNode* tn = new TransformationNode();
         TransformationNode* tn2 = new TransformationNode();
-        tn->Scale(5,5,5);
 
         tn2->Move(0,0,-100);
         PointLightNode* dln = new PointLightNode();
@@ -139,21 +139,21 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         dln->quadAtt = 0.0001;
         dln->constAtt = 0.5;
 
-        MaterialPtr m = MaterialPtr(new Material());
-//         m->ambient = Vector<4,float>(0.0,1.0,0.0,1.0);
-        m->specular = Vector<4,float>(0.0,1.0,0.0,1.0);
-        m->diffuse = Vector<4,float>(0.0,0.0,0.4,1.0);
-        m->shininess = 0;
-        m->emission = Vector<4,float>(0.1,0.0,0.0,1.0);
+//         MaterialPtr m = MaterialPtr(new Material());
+// //         m->ambient = Vector<4,float>(0.0,1.0,0.0,1.0);
+//         m->specular = Vector<4,float>(0.0,1.0,0.0,1.0);
+//         m->diffuse = Vector<4,float>(0.0,0.0,0.4,1.0);
+//         m->shininess = 0;
+//         m->emission = Vector<4,float>(0.1,0.0,0.0,1.0);
 
         root->AddNode(tn);
         root->AddNode(tn2);
         tn2->AddNode(dln);
 
-        SphereNode* sphere = new SphereNode(m,30,30);
+//         SphereNode* sphere = new SphereNode(m,30,30);
         SphereNode* sphere2 = new SphereNode();        
         dln->AddNode(sphere2);
-        tn->AddNode(sphere);
+//         tn->AddNode(sphere);
         ISoundSystem* openalsmgr = new OpenALSoundSystem(root, camera);
         engine.AddModule(*openalsmgr);
 
@@ -162,9 +162,14 @@ bool Factory::SetupEngine(IGameEngine& engine) {
             ResourceManager<ISoundResource>::Create(filename);
 
         ISound* sound = openalsmgr->CreateSound(soundres);
+        sound->SetMaxDistance(10);
         SoundNode* soundNode = new SoundNode(sound);
-        tn->AddNode(soundNode);
 
+        SoundRenderer* sr = new SoundRenderer();
+        renderer->preProcess.Attach(*sr);
+        sr->AddSoundNode(soundNode);
+        tn->AddNode(soundNode);
+         
         // move the transformation node in a circle
         CircleUpdate* cu = new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
         TransformationUpdater* tu  = 

@@ -89,6 +89,7 @@ Factory::Factory() {
     // frustum hack
     Frustum* frustum = new Frustum(*camera);
     frustum->SetFar(1000);
+    frustum->SetNear(0.0001);
     viewport->SetViewingVolume(frustum);
 
     renderer = new Renderer();

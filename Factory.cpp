@@ -66,6 +66,8 @@ public:
             case KEY_p: sn->GetSound()->Play(); break;
             case KEY_o: sn->GetSound()->Stop(); break;
             case KEY_i: sn->GetSound()->Pause(); break;
+            case KEY_UP: sn->GetSound()->SetMaxDistance(sn->GetSound()->GetMaxDistance()+1); break;
+            case KEY_DOWN: sn->GetSound()->SetMaxDistance(sn->GetSound()->GetMaxDistance()-1); break;
             default: 
                 break;
             }
@@ -140,21 +142,12 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         dln->quadAtt = 0.0001;
         dln->constAtt = 0.5;
 
-//         MaterialPtr m = MaterialPtr(new Material());
-// //         m->ambient = Vector<4,float>(0.0,1.0,0.0,1.0);
-//         m->specular = Vector<4,float>(0.0,1.0,0.0,1.0);
-//         m->diffuse = Vector<4,float>(0.0,0.0,0.4,1.0);
-//         m->shininess = 0;
-//         m->emission = Vector<4,float>(0.1,0.0,0.0,1.0);
-
         root->AddNode(tn);
         root->AddNode(tn2);
         tn2->AddNode(dln);
 
-//         SphereNode* sphere = new SphereNode(m,30,30);
         SphereNode* sphere2 = new SphereNode();        
         dln->AddNode(sphere2);
-//         tn->AddNode(sphere);
         ISoundSystem* openalsmgr = new OpenALSoundSystem(root, camera);
         engine.AddModule(*openalsmgr);
 
@@ -164,6 +157,7 @@ bool Factory::SetupEngine(IGameEngine& engine) {
 
         ISound* sound = openalsmgr->CreateSound(soundres);
         sound->SetMaxDistance(10);
+        sound->SetLooping(true);
         SoundNode* soundNode = new SoundNode(sound);
 
         SoundRenderer* sr = new SoundRenderer();

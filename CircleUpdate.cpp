@@ -24,10 +24,10 @@ CircleUpdate::CircleUpdate(Vector<3,float> center,
                            float angle=0) : 
     center(center),
     radius(radius),
-    angle(angle),
-    speed(speed)
+    speed(speed),
+    angle(angle)
 {
-
+  
 }
 
 /**

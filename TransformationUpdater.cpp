@@ -14,7 +14,7 @@ namespace Utils {
 
 
 TransformationUpdater::TransformationUpdater(TransformationNode* tn, IUpdateStrategy* s): 
-    tn(tn), s(s)
+    tn(tn), s(s), active(true)
 {
 
 }

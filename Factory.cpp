@@ -24,6 +24,7 @@
 #include <Sound/ISound.h>
 #include <Scene/SoundNode.h>
 #include <Sound/SoundRenderer.h>
+#include <Sound/MusicPlayer.h>
 
 #include <Resources/VorbisResource.h>
 #include <Resources/ISoundResource.h>
@@ -151,7 +152,6 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         ISoundSystem* openalsmgr = new OpenALSoundSystem(root, camera);
         engine.AddModule(*openalsmgr);
 
-
         ISoundResourcePtr soundres = 
             ResourceManager<ISoundResource>::Create(filename);
 
@@ -164,7 +164,13 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         renderer->preProcess.Attach(*sr);
         sr->AddSoundNode(soundNode);
         tn->AddNode(soundNode);
-         
+
+		//backgroundsound test
+		MusicPlayer* player = new MusicPlayer(camera, openalsmgr);
+		int id = player->AddBackGroundSound("C:/arbejdsprogrammer/Openengine/koden/openengine/Beastie Boys - Now Get Busy.ogg");
+		(player->GetBackGroundSound(id))->SetGain(0.2f);
+		engine.AddModule(*player);		
+
         // move the transformation node in a circle
         CircleUpdate* cu = new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
         TransformationUpdater* tu  = 

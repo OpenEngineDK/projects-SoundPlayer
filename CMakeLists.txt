@@ -41,4 +41,5 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME}
   Extensions_OpenALSoundSystem
   Extensions_VorbisResource
   Extensions_Shapes
+  Extensions_MusicPlayer
 )

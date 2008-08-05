@@ -128,7 +128,6 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         // First we set the resources directory
         DirectoryManager::AppendPath("/");
         DirectoryManager::AppendPath(""); //current directory
-		DirectoryManager::AppendPath("/projects/SoundPlayer/data");
         
         // load the resource plug-ins
         ResourceManager<ISoundResource>::AddPlugin(new VorbisResourcePlugin());
@@ -166,12 +165,12 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         sr->AddSoundNode(soundNode);
         tn->AddNode(soundNode);
 
-		//backgroundsound test
-		MusicPlayer* player = new MusicPlayer(camera, openalsmgr);
-		int id1 = player->AddBackGroundSound("batmanfo.ogg");
-		int id2 = player->AddBackGroundSound("Beastie Boys - Now Get Busy.ogg");
-		(player->GetBackGroundSound(id2))->SetGain(0.1f);
-		engine.AddModule(*player);		
+	//backgroundsound test
+	MusicPlayer* player = new MusicPlayer(camera, openalsmgr);
+	int id1 = player->AddBackGroundSound("projects/SoundPlayer/data/batmanfo.ogg");
+	int id2 = player->AddBackGroundSound("projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg");
+	//(player->GetBackGroundSound(id2))->SetGain(0.1f);
+	engine.AddModule(*player);		
 
         // move the transformation node in a circle
         CircleUpdate* cu = new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);

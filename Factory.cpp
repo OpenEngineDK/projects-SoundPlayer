@@ -162,7 +162,7 @@ bool Factory::SetupEngine(IGameEngine& engine) {
 
         SoundRenderer* sr = new SoundRenderer();
         renderer->preProcess.Attach(*sr);
-        sr->AddSoundNode(soundNode);
+        sr->AddSoundNode(soundNode,Vector<3,float>(1.0,1.0,1.0));
         tn->AddNode(soundNode);
 
 	//backgroundsound test

@@ -1,0 +1,32 @@
+# OpenEngine Distribution.
+# This file describes the default OpenEngine distribution.
+
+# main repository
+darcs / http://openengine.dk/code/openengine
+
+# SoundPlayer project
+darcs /projects/SoundPlayer http://openengine.dk/code/projects/SoundPlayer
+
+# standard set of extensions
+darcs /extensions/SDL             http://openengine.dk/code/extensions/SDL
+darcs /extensions/OpenGLRenderer  http://openengine.dk/code/extensions/OpenGLRenderer
+darcs /extensions/GenericHandlers http://openengine.dk/code/extensions/GenericHandlers
+darcs /extensions/OpenALSoundSystem http://openengine.dk/code/extensions/OpenALSoundSystem
+darcs /extensions/MusicPlayer     http://openengine.dk/code/extensions/MusicPlayer
+darcs /extensions/Shapes          http://openengine.dk/code/branches/Shapes
+darcs /extensions/VorbisResource  http://openengine.dk/code/extensions/VorbisResource
+# windows libraries
+win32 /libraries http://openengine.dk/data/libraries/boost-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/glew-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/sdl-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/dlls-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/openal-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/vorbis-win32.zip
+
+# os x libraries
+
+# linux libraries
+
+# data
+any /projects/SoundPlayer/data        http://www.openengine.dk/data/sound/Beastie_Boys_-_Now_Get_Busy.ogg
+any /projects/SoundPlayer/data        http://www.openengine.dk/data/sound/batmanfo.ogg

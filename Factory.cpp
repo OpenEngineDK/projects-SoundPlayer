@@ -155,7 +155,7 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         ISoundResourcePtr soundres = 
             ResourceManager<ISoundResource>::Create(filename);
 
-        ISound* sound = openalsmgr->CreateSound(soundres);
+        IMonoSound* sound = openalsmgr->CreateMonoSound(soundres);
         sound->SetMaxDistance(10);
         sound->SetLooping(true);
         SoundNode* soundNode = new SoundNode(sound);

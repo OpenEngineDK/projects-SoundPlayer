@@ -135,6 +135,8 @@ bool Factory::SetupEngine(IGameEngine& engine) {
 
         // visualize sound
         TransformationNode* tn = new TransformationNode();
+		TransformationNode* ltn = new TransformationNode();
+		TransformationNode* rtn = new TransformationNode();
         TransformationNode* tn2 = new TransformationNode();
 
         tn2->Move(0,0,-100);
@@ -155,31 +157,55 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         ISoundResourcePtr soundres = 
             ResourceManager<ISoundResource>::Create(filename);
 
-        IMonoSound* sound = openalsmgr->CreateMonoSound(soundres);
+ /*       IMonoSound* sound = openalsmgr->CreateMonoSound(soundres);
         sound->SetMaxDistance(10);
         sound->SetLooping(true);
-        SoundNode* soundNode = new SoundNode(sound);
+        SoundNode* soundNode = new SoundNode(sound);*/
+
+		IStereoSound* sound = openalsmgr->CreateStereoSound(soundres);
+		IMonoSound* leftsound = sound->GetLeft();
+		IMonoSound* rightsound = sound->GetRight();
+        leftsound->SetMaxDistance(10);
+        leftsound->SetLooping(true);
+		rightsound->SetMaxDistance(10);
+        rightsound->SetLooping(true);
+		leftsound->SetGain(0.8);
+		rightsound->SetGain(0.8);
+
+		//set
+        SoundNode* leftnode = new SoundNode(leftsound);
+		SoundNode* rightnode = new SoundNode(rightsound);
 
         SoundRenderer* sr = new SoundRenderer();
         renderer->preProcess.Attach(*sr);
-        sr->AddSoundNode(soundNode,Vector<3,float>(1.0,1.0,1.0));
-        tn->AddNode(soundNode);
-
+        sr->AddSoundNode(leftnode,Vector<3,float>(10.0,10.0,10.0));
+		sr->AddSoundNode(rightnode,Vector<3,float>(10.0,10.0,10.0));
+        tn->AddNode(ltn);
+		tn->AddNode(rtn);
+		ltn->AddNode(leftnode);
+		ltn->Move(-5.0, 0.0, 0.0);
+		rtn->AddNode(rightnode);
+		rtn->Move(5.0, 0.0, 0.0);
+/*
 	//backgroundsound test
 	MusicPlayer* player = new MusicPlayer(camera, openalsmgr);
 	int id1 = player->AddBackGroundSound("projects/SoundPlayer/data/batmanfo.ogg");
 	int id2 = player->AddBackGroundSound("projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg");
 	//(player->GetBackGroundSound(id2))->SetGain(0.1f);
 	engine.AddModule(*player);		
-
+*/
         // move the transformation node in a circle
-        CircleUpdate* cu = new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
+ /*       CircleUpdate* cu = new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
         TransformationUpdater* tu  = 
             new TransformationUpdater(tn, cu);
-        engine.AddModule(*tu);
+        engine.AddModule(*tu);*/
         
-        PlayHandler* ph = new PlayHandler(soundNode);
+  /*      PlayHandler* ph = new PlayHandler(leftnode);
         ph->BindToEventSystem();
+		PlayHandler* ph1 = new PlayHandler(rightnode);
+        ph->BindToEventSystem();*/
+
+		sound->Play();
 
         engine.AddModule(*(new Statistics(1000)));
 

@@ -38,8 +38,10 @@ CircleUpdate::~CircleUpdate() {
 
 }
 
-void CircleUpdate::Update(TransformationNode* t, const float deltaTime, const float percent) {
-    Vector<3,float> pos(center[0]+radius*cos(angle), center[0], center[2]+radius*sin(angle));
+void CircleUpdate::Update(TransformationNode* t, const float deltaTime) {
+    Vector<3,float> pos(center[0]+radius*cos(angle),
+			center[0], 
+			center[2]+radius*sin(angle));
     t->SetPosition(pos);
     angle += deltaTime * speed/1000;
     if (angle > 2*PI)

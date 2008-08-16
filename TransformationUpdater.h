@@ -10,7 +10,8 @@
 #ifndef _TRANSFORMATION_UPDATER_H_
 #define _TRANSFORMATION_UPDATER_H_
 
-#include <Core/IModule.h>
+#include <Core/IListener.h>
+#include <Core/EngineEvents.h>
 #include <Math/Vector.h>
 
 namespace OpenEngine {
@@ -21,17 +22,18 @@ namespace OpenEngine {
 
 namespace Utils {
 
-using OpenEngine::Core::IModule;
+using OpenEngine::Core::IListener;
+using OpenEngine::Core::ProcessEventArg;
 using OpenEngine::Scene::TransformationNode;
 
 class IUpdateStrategy {
 public:
-    ~IUpdateStrategy() {};
+    virtual ~IUpdateStrategy() {};
     
-    virtual void Update(TransformationNode* t, const float deltaTime, const float percent) = 0;
+    virtual void Update(TransformationNode* t, const float deltaTime) = 0;
 };
 
-class TransformationUpdater: public IModule {
+class TransformationUpdater: public IListener<ProcessEventArg> {
 private:
     TransformationNode* tn;
     IUpdateStrategy* s;
@@ -42,10 +44,7 @@ public:
 
     void SetActive(bool state);
 
-    void Initialize();
-    void Process(const float deltaTime, const float percent);
-    void Deinitialize();
-    bool IsTypeOf(const std::type_info& inf);
+    void Handle(ProcessEventArg arg);
 };
 
 } // NS Utils

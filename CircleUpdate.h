@@ -39,7 +39,7 @@ public:
                  float angle);
 
     virtual ~CircleUpdate();
-    virtual void Update(TransformationNode* t, const float deltaTime, const float percent);
+    virtual void Update(TransformationNode* t, const float deltaTime);
 };
 
 } // NS Utils

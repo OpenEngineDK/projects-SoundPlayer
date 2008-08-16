@@ -27,23 +27,14 @@ TransformationUpdater::~TransformationUpdater() {
 
 }
 
-void TransformationUpdater::Initialize() {
-}
-
-void TransformationUpdater::Process(const float deltaTime, const float percent) {
+void TransformationUpdater::Handle(ProcessEventArg arg) {
+    float deltaTime = arg.approx / 1000.0; //@todo: salomon!
     if (active)
-        s->Update(tn, deltaTime, percent);
+        s->Update(tn, deltaTime);
 }
 
 void TransformationUpdater::SetActive(bool state) {
     active = state;
-}
-
-void TransformationUpdater::Deinitialize() {
-}
-
-bool TransformationUpdater::IsTypeOf(const std::type_info& inf) {
-    return ((typeid(TransformationUpdater) == inf));
 }
 
 } // NS Utils

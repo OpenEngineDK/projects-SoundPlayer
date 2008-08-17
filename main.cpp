@@ -230,10 +230,17 @@ void SetupScene(Config& config) {
     config.engine.ProcessEvent().Attach(*openalsmgr);
 
     string filename = "projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg";
-    ISoundResourcePtr soundres = 
-    ResourceManager<ISoundResource>::Create(filename);
-    
+
+    /*   ISoundResourcePtr soundres = 
+          ResourceManager<ISoundResource>::Create("batmanfo.ogg");
+  
     IStereoSound* sound = openalsmgr->CreateStereoSound(soundres);
+    
+    sound->SetMaxDistance(10);
+    sound->SetLooping(true);
+    SoundNode* soundnode = new SoundNode(sound);
+    */
+    /*
     IMonoSound* leftsound = sound->GetLeft();
     IMonoSound* rightsound = sound->GetRight();
     leftsound->SetMaxDistance(10);
@@ -246,26 +253,30 @@ void SetupScene(Config& config) {
     //set
     SoundNode* leftnode = new SoundNode(leftsound);
     SoundNode* rightnode = new SoundNode(rightsound);
-
-    SoundRenderer* sr = new SoundRenderer();
+    */
+    //SoundRenderer* sr = new SoundRenderer();
     //@todo config.renderer->preProcess.Attach(*sr);
-    sr->AddSoundNode(leftnode,Vector<3,float>(10.0,10.0,10.0));
-    sr->AddSoundNode(rightnode,Vector<3,float>(10.0,10.0,10.0));
-
+    //sr->AddSoundNode(soundnode,Vector<3,float>(10.0,10.0,10.0));
+    //   sr->AddSoundNode(rightnode,Vector<3,float>(10.0,10.0,10.0));
+    /*
     tn->AddNode(ltn);
     tn->AddNode(rtn);
     ltn->AddNode(leftnode);
     ltn->Move(-5.0, 0.0, 0.0);
     rtn->AddNode(rightnode);
-    rtn->Move(5.0, 0.0, 0.0);
+    rtn->Move(5.0, 0.0, 0.0);*/
 
 
+    
     //backgroundsound test
     MusicPlayer* player = new MusicPlayer(config.camera, openalsmgr);
+    //player->AddMonoBackGroundSound("batmanfo.ogg");
+    //   player->AddMonoBackGroundSound("projects/SoundPlayer/data/Atmosphere01.ogg");
+    player->AddStereoBackGroundSound(filename);
     config.engine.ProcessEvent().Attach(*player);
-
+    
     //@todo add some files to the player from a playlist.txt file
-    player->AddStereoBackGroundSound("projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg");
+    //    player->AddStereoBackGroundSound("projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg");
 
     // move the transformation node in a circle
     CircleUpdate* cu = 
@@ -275,8 +286,12 @@ void SetupScene(Config& config) {
     config.engine.ProcessEvent().Attach(*tu);
     
     // Create the mouse and keyboard input modules
-    config.keyboard = new SDLInput();
-    config.mouse = (IMouse*)config.keyboard;
+    SDLInput* input = new SDLInput();
+    config.engine.InitializeEvent().Attach(*input);
+    config.engine.ProcessEvent().Attach(*input);
+    config.engine.DeinitializeEvent().Attach(*input);
+    config.keyboard = input;
+    config.mouse    = input;
 
     // Bind the quit handler
     QuitHandler* quit_h = new QuitHandler(config.engine);
@@ -286,21 +301,16 @@ void SetupScene(Config& config) {
     MoveHandler* move_h = new MoveHandler(*config.camera, *config.mouse);
     config.keyboard->KeyEvent().Attach(*move_h);
 
-    // Bind to the engine for processing time
-    config.engine.InitializeEvent().Attach(*config.mouse);
-    config.engine.ProcessEvent().Attach(*config.mouse);
-    config.engine.DeinitializeEvent().Attach(*config.mouse);
-
     config.engine.InitializeEvent().Attach(*move_h);
     config.engine.ProcessEvent().Attach(*move_h);
     config.engine.DeinitializeEvent().Attach(*move_h);
 
-    SoundKeyHandler* ph = new SoundKeyHandler(leftnode);
-    config.keyboard->KeyEvent().Attach(*ph);
-    SoundKeyHandler* ph1 = new SoundKeyHandler(rightnode);
-    config.keyboard->KeyEvent().Attach(*ph1);
+    //SoundKeyHandler* ph = new SoundKeyHandler(soundnode);
+    //config.keyboard->KeyEvent().Attach(*ph);
+    //    SoundKeyHandler* ph1 = new SoundKeyHandler(rightnode);
+    //    config.keyboard->KeyEvent().Attach(*ph1);
     
-    sound->Play();
+    player->Play();
 }
 
 void SetupDebugging(Config& config) {

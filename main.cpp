@@ -259,7 +259,7 @@ void SetupScene(Config& config) {
 
     // load playlist.txt file
     ifstream* playlistFile = File
-        ::Open("projects/SoundPlayer/data/playlist.txt");
+        ::Open("projects/SoundPlayer/playlist.txt");
     while (!playlistFile->eof()) {
         string line;
         getline(*playlistFile, line);

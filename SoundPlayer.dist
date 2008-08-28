@@ -3,18 +3,29 @@
 
 # main repository
 darcs / http://openengine.dk/code/openengine
+darcs-dev / fh.daimi.au.dk:/users/cgd/code/openengine
 
 # SoundPlayer project
 darcs /projects/SoundPlayer http://openengine.dk/code/projects/SoundPlayer
+darcs-dev /projects/SoundPlayer fh.daimi.au.dk:/users/cgd/code/projects/SoundPlayer
 
 # standard set of extensions
-darcs /extensions/SDL             http://openengine.dk/code/extensions/SDL
-darcs /extensions/OpenGLRenderer  http://openengine.dk/code/extensions/OpenGLRenderer
-darcs /extensions/GenericHandlers http://openengine.dk/code/extensions/GenericHandlers
+darcs /extensions/SDL               http://openengine.dk/code/extensions/SDL
+darcs /extensions/OpenGLRenderer    http://openengine.dk/code/extensions/OpenGLRenderer
+darcs /extensions/GenericHandlers   http://openengine.dk/code/extensions/GenericHandlers
 darcs /extensions/OpenALSoundSystem http://openengine.dk/code/extensions/OpenALSoundSystem
-darcs /extensions/MusicPlayer     http://openengine.dk/code/extensions/MusicPlayer
-darcs /extensions/Shapes          http://openengine.dk/code/branches/Shapes
-darcs /extensions/VorbisResource  http://openengine.dk/code/extensions/VorbisResource
+darcs /extensions/MusicPlayer       http://openengine.dk/code/extensions/MusicPlayer
+darcs /extensions/Shapes            http://openengine.dk/code/branches/Shapes
+darcs /extensions/VorbisResource    http://openengine.dk/code/extensions/VorbisResource
+
+darcs-dev /extensions/SDL               fh.daimi.au.dk:/users/cgd/code/extensions/SDL
+darcs-dev /extensions/OpenGLRenderer    fh.daimi.au.dk:/users/cgd/code/extensions/OpenGLRenderer
+darcs-dev /extensions/GenericHandlers   fh.daimi.au.dk:/users/cgd/code/extensions/GenericHandlers
+darcs-dev /extensions/OpenALSoundSystem fh.daimi.au.dk:/users/cgd/code/extensions/OpenALSoundSystem
+darcs-dev /extensions/MusicPlayer       fh.daimi.au.dk:/users/cgd/code/extensions/MusicPlayer
+darcs-dev /extensions/Shapes            fh.daimi.au.dk:/users/cgd/code/extensions/Shapes
+darcs-dev /extensions/VorbisResource    fh.daimi.au.dk:/users/cgd/code/extensions/VorbisResource
+
 # windows libraries
 win32 /libraries http://openengine.dk/data/libraries/boost-win32.zip
 win32 /libraries http://openengine.dk/data/libraries/glew-win32.zip

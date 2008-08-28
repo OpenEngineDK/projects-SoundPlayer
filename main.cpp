@@ -57,6 +57,7 @@
 
 #include "CircleUpdate.h"
 #include "TransformationUpdater.h"
+#include "MusicPlayerKeyHandler.h"
 #include "SoundKeyHandler.h"
 
 // Additional namespaces
@@ -144,7 +145,7 @@ int main(int argc, char** argv) {
 void SetupResources(Config& config) {
     // set the resources directory
     // @todo we should check that this path exists
-    DirectoryManager::AppendPath("/SoundPlayer/data/");
+    DirectoryManager::AppendPath("projects/SoundPlayer/data/");
     DirectoryManager::AppendPath("");
     DirectoryManager::AppendPath("/");
 
@@ -224,36 +225,13 @@ void SetupScene(Config& config) {
     root->AddNode(tn2);
     tn2->AddNode(dln);
     
-    SphereNode* sphere2 = new SphereNode();        
-    dln->AddNode(sphere2);
-    ISoundSystem* openalsmgr = new OpenALSoundSystem(root, config.camera);
-    config.engine.ProcessEvent().Attach(*openalsmgr);
-
-    string filename = "projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg";
-
-    /*   ISoundResourcePtr soundres = 
-          ResourceManager<ISoundResource>::Create("batmanfo.ogg");
-  
-    IStereoSound* sound = openalsmgr->CreateStereoSound(soundres);
+    // move the transformation node in a circle
+    CircleUpdate* cu = 
+      new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
+    TransformationUpdater* tu  = 
+      new TransformationUpdater(tn, cu);
+    config.engine.ProcessEvent().Attach(*tu);
     
-    sound->SetMaxDistance(10);
-    sound->SetLooping(true);
-    SoundNode* soundnode = new SoundNode(sound);
-    */
-    /*
-    IMonoSound* leftsound = sound->GetLeft();
-    IMonoSound* rightsound = sound->GetRight();
-    leftsound->SetMaxDistance(10);
-    leftsound->SetLooping(true);
-    rightsound->SetMaxDistance(10);
-    rightsound->SetLooping(true);
-    leftsound->SetGain(0.8);
-    rightsound->SetGain(0.8);
-		
-    //set
-    SoundNode* leftnode = new SoundNode(leftsound);
-    SoundNode* rightnode = new SoundNode(rightsound);
-    */
     //SoundRenderer* sr = new SoundRenderer();
     //@todo config.renderer->preProcess.Attach(*sr);
     //sr->AddSoundNode(soundnode,Vector<3,float>(10.0,10.0,10.0));
@@ -266,24 +244,46 @@ void SetupScene(Config& config) {
     rtn->AddNode(rightnode);
     rtn->Move(5.0, 0.0, 0.0);*/
 
+    SphereNode* sphere2 = new SphereNode();        
+    dln->AddNode(sphere2);
+    ISoundSystem* openalsmgr = new OpenALSoundSystem(root, config.camera);
+    config.engine.ProcessEvent().Attach(*openalsmgr);
 
-    
+
     //backgroundsound test
     MusicPlayer* player = new MusicPlayer(config.camera, openalsmgr);
     //player->AddMonoBackGroundSound("batmanfo.ogg");
-    //   player->AddMonoBackGroundSound("projects/SoundPlayer/data/Atmosphere01.ogg");
-    player->AddStereoBackGroundSound(filename);
-    config.engine.ProcessEvent().Attach(*player);
-    
-    //@todo add some files to the player from a playlist.txt file
-    //    player->AddStereoBackGroundSound("projects/SoundPlayer/data/Beastie_Boys_-_Now_Get_Busy.ogg");
+    //player->AddMonoBackGroundSound("Atmosphere01.ogg");
 
-    // move the transformation node in a circle
-    CircleUpdate* cu = 
-      new CircleUpdate(Vector<3,float>(0,0,0), 50, 0.2, -PI*0.5 - PI*0.25);
-    TransformationUpdater* tu  = 
-      new TransformationUpdater(tn, cu);
-    config.engine.ProcessEvent().Attach(*tu);
+    std::list<string> files;
+
+    // load playlist.txt file
+    ifstream* playlistFile = File
+        ::Open("projects/SoundPlayer/data/playlist.txt");
+    while (!playlistFile->eof()) {
+        string line;
+        getline(*playlistFile, line);
+
+        // Check the string
+        if (line[0] == '#' || line == "") continue;
+        else files.push_back(line);
+    }
+
+    // load and decompress each files from the list
+    list<string>::iterator itr;
+    for (itr=files.begin(); itr != files.end(); ++itr) {
+        string file = *itr;
+        logger.info << "loading file: " << file << " ... "; //@todo logger.flush
+        try {
+            player->AddSound(file);
+            logger.info << "done" << logger.end;
+        } catch (Exception e) {
+            logger.info << "failed" << logger.end;
+            logger.warning << e.what() << logger.end;
+        }
+    }
+
+    config.engine.ProcessEvent().Attach(*player);
     
     // Create the mouse and keyboard input modules
     SDLInput* input = new SDLInput();
@@ -305,10 +305,13 @@ void SetupScene(Config& config) {
     config.engine.ProcessEvent().Attach(*move_h);
     config.engine.DeinitializeEvent().Attach(*move_h);
 
+    MusicPlayerKeyHandler* mph = new MusicPlayerKeyHandler(*player);
+    config.keyboard->KeyEvent().Attach(*mph);
+
     //SoundKeyHandler* ph = new SoundKeyHandler(soundnode);
     //config.keyboard->KeyEvent().Attach(*ph);
-    //    SoundKeyHandler* ph1 = new SoundKeyHandler(rightnode);
-    //    config.keyboard->KeyEvent().Attach(*ph1);
+    //SoundKeyHandler* ph1 = new SoundKeyHandler(rightnode);
+    //config.keyboard->KeyEvent().Attach(*ph1);
     
     player->Play();
 }
@@ -321,5 +324,6 @@ void SetupDebugging(Config& config) {
         config.scene->AddNode(config.frustum->GetFrustumNode());
     }
 
-    config.engine.ProcessEvent().Attach(*(new OpenEngine::Utils::Statistics(1000)));
+    config.engine.ProcessEvent()
+        .Attach(*(new OpenEngine::Utils::Statistics(1000)));
 }

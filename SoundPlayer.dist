@@ -23,7 +23,7 @@ darcs-dev /extensions/OpenGLRenderer    fh.daimi.au.dk:/users/cgd/code/extension
 darcs-dev /extensions/GenericHandlers   fh.daimi.au.dk:/users/cgd/code/extensions/GenericHandlers
 darcs-dev /extensions/OpenALSoundSystem fh.daimi.au.dk:/users/cgd/code/extensions/OpenALSoundSystem
 darcs-dev /extensions/MusicPlayer       fh.daimi.au.dk:/users/cgd/code/extensions/MusicPlayer
-darcs-dev /extensions/Shapes            fh.daimi.au.dk:/users/cgd/code/extensions/Shapes
+darcs-dev /extensions/Shapes            fh.daimi.au.dk:/users/cgd/code/branches/Shapes
 darcs-dev /extensions/VorbisResource    fh.daimi.au.dk:/users/cgd/code/extensions/VorbisResource
 
 # windows libraries

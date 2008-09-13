@@ -211,8 +211,6 @@ void SetupScene(Config& config) {
 
     // visualize sound
     TransformationNode* tn = new TransformationNode();
-    TransformationNode* ltn = new TransformationNode();
-    TransformationNode* rtn = new TransformationNode();
     TransformationNode* tn2 = new TransformationNode();
 
     tn2->Move(0,0,-100);
@@ -237,6 +235,8 @@ void SetupScene(Config& config) {
     //sr->AddSoundNode(soundnode,Vector<3,float>(10.0,10.0,10.0));
     //   sr->AddSoundNode(rightnode,Vector<3,float>(10.0,10.0,10.0));
     /*
+    TransformationNode* ltn = new TransformationNode();
+    TransformationNode* rtn = new TransformationNode();
     tn->AddNode(ltn);
     tn->AddNode(rtn);
     ltn->AddNode(leftnode);

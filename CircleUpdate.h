@@ -30,8 +30,8 @@ private:
     TransformationNode* tn;
     Vector<3,float> center;
     float radius;
-    float angle;
     float speed;
+    float angle;
 public:
     CircleUpdate(Vector<3,float> center,
                  float radius,

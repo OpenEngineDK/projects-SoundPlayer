@@ -182,7 +182,7 @@ void SetupRendering(Config& config) {
         throw Exception("Setup renderer dependencies are not satisfied.");
 
     // Create a renderer
-    config.renderer = new Renderer();
+    config.renderer = new Renderer(config.viewport);
 
     // Setup a rendering view
     RenderingView* rv = new RenderingView(*config.viewport);

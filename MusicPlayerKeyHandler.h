@@ -21,7 +21,7 @@ public:
  MusicPlayerKeyHandler(MusicPlayer& mplayer): mplayer(mplayer) {}
     virtual ~MusicPlayerKeyHandler() {}
     void Handle(KeyboardEventArg arg) {
-        if (arg.type == KeyboardEventArg::PRESS) {
+        if (arg.type == EVENT_PRESS) {
             switch (arg.sym) {
             case KEY_g: 
                 mplayer.Play();

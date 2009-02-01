@@ -21,7 +21,7 @@ public:
     SoundKeyHandler(SoundNode* sn): sn(sn){}
     virtual ~SoundKeyHandler() {}
     void Handle(KeyboardEventArg arg) {
-        if (arg.type == KeyboardEventArg::PRESS) {
+        if (arg.type == EVENT_PRESS) {
             switch (arg.sym) {
             case KEY_p: 
 	      sn->GetSound()->Play();

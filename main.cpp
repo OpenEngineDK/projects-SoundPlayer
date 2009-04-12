@@ -166,7 +166,7 @@ void SetupDisplay(Config& config) {
     config.frame         = new SDLFrame(800, 600, 32);
     config.viewingvolume = new ViewingVolume();
     config.camera        = new Camera( *config.viewingvolume );
-    config.frustum       = new Frustum(*config.camera, 20, 3000);
+    config.frustum       = new Frustum(*config.camera, 3000);
     config.viewport      = new Viewport(*config.frame);
     config.viewport->SetViewingVolume(config.frustum);
 

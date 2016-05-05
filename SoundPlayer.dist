@@ -2,29 +2,29 @@
 # This file describes the default OpenEngine distribution.
 
 # main repository
-darcs / http://openengine.dk/code/openengine
-darcs-dev / fh.daimi.au.dk:/users/cgd/code/openengine
+git / https://github.com/OpenEngineDK/openengine.git
+git-dev / git@github.com:OpenEngineDK/openengine.git
 
 # SoundPlayer project
-darcs /projects/SoundPlayer http://openengine.dk/code/projects/SoundPlayer
-darcs-dev /projects/SoundPlayer fh.daimi.au.dk:/users/cgd/code/projects/SoundPlayer
+git /projects/SoundPlayer https://github.com/OpenEngineDK/projects-SoundPlayer.git
+git-dev /projects/SoundPlayer git@github.com:OpenEngineDK/projects-SoundPlayer.git
 
 # standard set of extensions
-darcs /extensions/SDL               http://openengine.dk/code/extensions/SDL
-darcs /extensions/OpenGLRenderer    http://openengine.dk/code/extensions/OpenGLRenderer
-darcs /extensions/GenericHandlers   http://openengine.dk/code/extensions/GenericHandlers
-darcs /extensions/OpenALSoundSystem http://openengine.dk/code/extensions/OpenALSoundSystem
-darcs /extensions/MusicPlayer       http://openengine.dk/code/extensions/MusicPlayer
-darcs /extensions/Shapes            http://openengine.dk/code/extensions/Shapes
-darcs /extensions/VorbisResource    http://openengine.dk/code/extensions/VorbisResource
+git /extensions/SDL               https://github.com/OpenEngineDK/extensions-SDL.git
+git /extensions/OpenGLRenderer    https://github.com/OpenEngineDK/extensions-OpenGLRenderer.git
+git /extensions/GenericHandlers   https://github.com/OpenEngineDK/extensions-GenericHandlers.git
+git /extensions/OpenALSoundSystem https://github.com/OpenEngineDK/extensions-OpenALSoundSystem.git
+git /extensions/MusicPlayer       https://github.com/OpenEngineDK/extensions-MusicPlayer.git
+git /extensions/Shapes            https://github.com/OpenEngineDK/extensions-Shapes.git
+git /extensions/VorbisResource    https://github.com/OpenEngineDK/extensions-VorbisResource.git
 
-darcs-dev /extensions/SDL               fh.daimi.au.dk:/users/cgd/code/extensions/SDL
-darcs-dev /extensions/OpenGLRenderer    fh.daimi.au.dk:/users/cgd/code/extensions/OpenGLRenderer
-darcs-dev /extensions/GenericHandlers   fh.daimi.au.dk:/users/cgd/code/extensions/GenericHandlers
-darcs-dev /extensions/OpenALSoundSystem fh.daimi.au.dk:/users/cgd/code/extensions/OpenALSoundSystem
-darcs-dev /extensions/MusicPlayer       fh.daimi.au.dk:/users/cgd/code/extensions/MusicPlayer
-darcs-dev /extensions/Shapes            fh.daimi.au.dk:/users/cgd/code/extensions/Shapes
-darcs-dev /extensions/VorbisResource    fh.daimi.au.dk:/users/cgd/code/extensions/VorbisResource
+git-dev /extensions/SDL               git@github.com:OpenEngineDK/extensions-SDL.git
+git-dev /extensions/OpenGLRenderer    git@github.com:OpenEngineDK/extensions-OpenGLRenderer.git
+git-dev /extensions/GenericHandlers   git@github.com:OpenEngineDK/extensions-GenericHandlers.git
+git-dev /extensions/OpenALSoundSystem git@github.com:OpenEngineDK/extensions-OpenALSoundSystem.git
+git-dev /extensions/MusicPlayer       git@github.com:OpenEngineDK/extensions-MusicPlayer.git
+git-dev /extensions/Shapes            git@github.com:OpenEngineDK/extensions-Shapes.git
+git-dev /extensions/VorbisResource    git@github.com:OpenEngineDK/extensions-VorbisResource.git
 
 # windows libraries
 win32 /libraries http://openengine.dk/data/libraries/boost-win32.zip
